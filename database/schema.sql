@@ -127,7 +127,7 @@ VALUES (
     '{
         "fields": [
             {"key": "route", "type": "text", "label": "Route", "placeholder": "e.g. Berlin -> Rotterdam"},
-            {"key": "server", "type": "select", "label": "Server", "options": ["EU2", "EU1", "Promods EU2"]},
+            {"key": "server", "type": "select", "label": "Server", "options": ["Simulation 1", "Simulation 2", "[SGP] Simulation", "Arcade", "ProMods Simulation", "ProMods Arcade", "Event Server"]},
             {"key": "mood", "type": "select", "label": "Pace", "options": ["Chill / no rush", "Timed delivery", "Roleplay"]},
             {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
         ]
@@ -141,7 +141,31 @@ ON CONFLICT (slug) DO UPDATE SET
     field_schema = EXCLUDED.field_schema;
 
 -- ============================================
--- Seed: Star Citizen activities — tests grouping with several
+-- Seed: EuroTruck Simulator 2 - VTC.World
+-- (VTC.World is a separate platform/client layered on top of TruckersMP,
+-- with its own gameplay modes, profile system, and events - distinct
+-- from plain TruckersMP servers.)
+-- ============================================
+INSERT INTO activities (slug, display_name, game_group, accent_color, field_schema)
+VALUES (
+    'ets2_vtc_world',
+    'EuroTruck Simulator 2 - VTC.World',
+    'EuroTruck Simulator 2',
+    '#5A8F3D',
+    '{
+        "fields": [
+            {"key": "mode", "type": "select", "label": "Mode", "options": ["Vanilla", "Simplified", "Simulation"]},
+            {"key": "route", "type": "text", "label": "Route", "placeholder": "e.g. Berlin -> Rotterdam"},
+            {"key": "vtc_name", "type": "text", "label": "VTC name (optional)"},
+            {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
+        ]
+    }'
+)
+ON CONFLICT (slug) DO UPDATE SET
+    display_name = EXCLUDED.display_name,
+    game_group = EXCLUDED.game_group,
+    accent_color = EXCLUDED.accent_color,
+    field_schema = EXCLUDED.field_schema; — tests grouping with several
 -- sub-activities under the same game_group. No icon: Star Citizen
 -- isn't sold on Steam, so no safe official hotlink URL is available yet.
 -- ============================================

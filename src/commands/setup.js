@@ -29,6 +29,7 @@ module.exports = {
                 .setRequired(true)
                 .addChoices(
                     { name: 'EuroTruck Simulator 2 - Convoy', value: 'ets2_convoy' },
+                    { name: 'EuroTruck Simulator 2 - VTC.World', value: 'ets2_vtc_world' },
                     { name: 'Star Citizen - Mining', value: 'sc_mining' },
                     { name: 'Star Citizen - Salvage', value: 'sc_salvage' },
                     { name: 'Star Citizen - PvP', value: 'sc_pvp' },
