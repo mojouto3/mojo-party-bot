@@ -1,0 +1,69 @@
+{
+    "setup": {
+        "success": "Mojo Party Bot has been set up.\nChannel: {channel}\nActive activity: **{activity}**",
+        "activity_not_found": "Could not find activity \"{slug}\" in the database."
+    },
+    "setup_game": {
+        "game_not_found": "Could not find any active activities for \"{game}\".",
+        "success": "Mojo Party Bot has been set up.\nChannel: {channel}\nActivated {count} activities for **{game}**:\n{list}"
+    },
+    "profile": {
+        "header": "⭐ {score} · {sessions} sessions",
+        "no_activities": "_You don't have any activity profiles yet. Create a session request to get started._"
+    },
+    "hub": {
+        "title": "## Find a group",
+        "description": "Tap the button to create a session request or browse what's already open. No commands needed.",
+        "button_create": "Create session request",
+        "button_browse": "Browse open requests",
+        "button_profile": "My profile"
+    },
+    "post": {
+        "looking_for_group": "{username} is looking for a group",
+        "button_join": "Join",
+        "button_full": "Full",
+        "button_closed": "Closed",
+        "button_mark_done": "Mark as done",
+        "button_completed": "Completed"
+    },
+    "component": {
+        "no_activity_configured": "No activity has been set up on this server yet. Ask an admin to run `/setup`.",
+        "select_activity_prompt": "Which activity do you want to create a request for?",
+        "select_activity_placeholder": "Choose an activity",
+        "select_game_prompt": "Which game do you want to create a request for?",
+        "select_game_placeholder": "Choose a game",
+        "activity_not_found": "Activity not found.",
+        "browse_title": "## Open session requests",
+        "browse_empty": "There are no open session requests right now. Be the first to create one!",
+        "join_own_session": "You joined your own session request.",
+        "join_notified": "You joined the session request. The creator was notified via DM.",
+        "join_no_dm": "You joined the session request. Couldn't send a DM to the creator (their DMs might be closed).",
+        "join_not_found": "This session request could not be found.",
+        "join_session_full": "This session is already full.",
+        "join_already_joined": "You've already joined this session.",
+        "join_session_closed": "This session has already been marked as completed.",
+        "dm_notification": "**{joiner}** wants to join your group for **{activity}**!\nCheck it out: {thread}",
+        "complete_not_creator": "Only the creator of this session request can mark it as done.",
+        "complete_already": "This session has already been marked as completed.",
+        "complete_success": "Session marked as completed. Rating requests have been sent via DM.",
+        "complete_no_participants": "Session marked as completed. No one had joined, so there's nothing to rate."
+    },
+    "rate": {
+        "creator_prompt": "**{activity}** session with {participants} is done! Rate how it went:",
+        "guest_prompt": "How was your session for **{activity}** hosted by {creator}?",
+        "tag_good_comms": "Good comms",
+        "tag_toxic": "Toxic",
+        "tag_play_again": "Play again",
+        "recorded": "Thanks, your rating was recorded.",
+        "already_recorded": "You already gave this rating."
+    },
+    "modal": {
+        "activity_not_found": "Activity not found.",
+        "no_channel_configured": "No channel has been configured for posts. Ask an admin to run `/setup`.",
+        "published": "Your session request has been posted to {channel}."
+    },
+    "common": {
+        "generic_error": "Something went wrong. Please try again in a moment.",
+        "unknown_command": "Unknown command."
+    }
+}

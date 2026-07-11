@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B7FE8"/>
+      <stop offset="100%" stop-color="#3C3489"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <circle cx="160" cy="520" r="120" fill="#EEEDFE" opacity="0.06"/>
+  <circle cx="1150" cy="100" r="170" fill="#EEEDFE" opacity="0.06"/>
+  <circle cx="1090" cy="540" r="80" fill="#EEEDFE" opacity="0.06"/>
+
+  <circle cx="560" cy="255" r="12" fill="#F0997B"/>
+  <circle cx="640" cy="228" r="12" fill="#5DCAA5"/>
+  <circle cx="720" cy="255" r="12" fill="#FAC775"/>
+
+  <text x="640" y="360" font-family="Arial, Helvetica, sans-serif" font-weight="700"
+        font-size="86" fill="#F5F4FE" text-anchor="middle" letter-spacing="-1">Mojo Party Bot</text>
+
+  <text x="640" y="415" font-family="Arial, Helvetica, sans-serif" font-weight="400"
+        font-size="28" fill="#CECBF6" text-anchor="middle">Find your group. No spam, no guesswork.</text>
+
+  <text x="640" y="470" font-family="Arial, Helvetica, sans-serif" font-weight="400"
+        font-size="18" fill="#AFA9EC" text-anchor="middle">Discord.js v14 &#183; Components V2 &#183; PostgreSQL</text>
+</svg>

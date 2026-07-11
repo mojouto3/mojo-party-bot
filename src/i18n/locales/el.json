@@ -1,0 +1,69 @@
+{
+    "setup": {
+        "success": "Το Mojo Party Bot ρυθμίστηκε.\nChannel: {channel}\nActivity ενεργό: **{activity}**",
+        "activity_not_found": "Δεν βρέθηκε το activity \"{slug}\" στη βάση."
+    },
+    "setup_game": {
+        "game_not_found": "Δεν βρέθηκαν ενεργά activities για \"{game}\".",
+        "success": "Το Mojo Party Bot ρυθμίστηκε.\nChannel: {channel}\nΕνεργοποιήθηκαν {count} activities για **{game}**:\n{list}"
+    },
+    "profile": {
+        "header": "⭐ {score} · {sessions} sessions",
+        "no_activities": "_Δεν έχεις ακόμα κανένα activity profile. Δημιούργησε μια αναζήτηση για να ξεκινήσεις._"
+    },
+    "hub": {
+        "title": "## Βρες group",
+        "description": "Πάτα το κουμπί για να φτιάξεις αναζήτηση ή δες τι υπάρχει ήδη ανοιχτό. Δεν χρειάζεται καμία εντολή.",
+        "button_create": "Δημιούργησε αναζήτηση",
+        "button_browse": "Δες ανοιχτές αναζητήσεις",
+        "button_profile": "Το προφίλ μου"
+    },
+    "post": {
+        "looking_for_group": "{username} ψάχνει group",
+        "button_join": "Join",
+        "button_full": "Γεμάτο",
+        "button_closed": "Έκλεισε",
+        "button_mark_done": "Ολοκληρώθηκε",
+        "button_completed": "Ολοκληρωμένο"
+    },
+    "component": {
+        "no_activity_configured": "Δεν έχει ρυθμιστεί κανένα activity σε αυτό το server ακόμα. Ζήτησε από κάποιον admin να τρέξει `/setup`.",
+        "select_activity_prompt": "Για ποιο activity θες να φτιάξεις αναζήτηση;",
+        "select_activity_placeholder": "Επίλεξε activity",
+        "select_game_prompt": "Για ποιο παιχνίδι θες να φτιάξεις αναζήτηση;",
+        "select_game_placeholder": "Επίλεξε παιχνίδι",
+        "activity_not_found": "Δεν βρέθηκε το activity.",
+        "browse_title": "## Ανοιχτές αναζητήσεις",
+        "browse_empty": "Δεν υπάρχουν ανοιχτές αναζητήσεις αυτή τη στιγμή. Φτιάξε την πρώτη!",
+        "join_own_session": "Μπήκες στη δική σου αναζήτηση.",
+        "join_notified": "Μπήκες στην αναζήτηση. Ο δημιουργός ενημερώθηκε με DM.",
+        "join_no_dm": "Μπήκες στην αναζήτηση. Δεν κατάφερα να στείλω DM στον δημιουργό (μπορεί να έχει κλειστά τα DMs).",
+        "join_not_found": "Δεν βρέθηκε αυτή η αναζήτηση.",
+        "join_session_full": "Αυτή η αναζήτηση είναι ήδη γεμάτη.",
+        "join_already_joined": "Έχεις ήδη μπει σε αυτή την αναζήτηση.",
+        "join_session_closed": "Αυτή η αναζήτηση έχει ήδη ολοκληρωθεί.",
+        "dm_notification": "**{joiner}** θέλει να μπει στην ομάδα σου για **{activity}**!\nΔες την αναζήτηση: {thread}",
+        "complete_not_creator": "Μόνο ο δημιουργός αυτής της αναζήτησης μπορεί να την ολοκληρώσει.",
+        "complete_already": "Αυτή η αναζήτηση έχει ήδη ολοκληρωθεί.",
+        "complete_success": "Η αναζήτηση ολοκληρώθηκε. Στάλθηκαν αιτήματα αξιολόγησης με DM.",
+        "complete_no_participants": "Η αναζήτηση ολοκληρώθηκε. Κανείς δεν είχε μπει, οπότε δεν υπάρχει τι να αξιολογηθεί."
+    },
+    "rate": {
+        "creator_prompt": "Η αναζήτηση **{activity}** ολοκληρώθηκε με {participants}! Αξιολόγησε πώς πήγε:",
+        "guest_prompt": "Πώς πήγε η αναζήτηση **{activity}** με host τον/την {creator};",
+        "tag_good_comms": "Καλή επικοινωνία",
+        "tag_toxic": "Τοξικός/ή",
+        "tag_play_again": "Θα ξανάπαιζα",
+        "recorded": "Ευχαριστούμε, η αξιολόγησή σου καταγράφηκε.",
+        "already_recorded": "Έχεις ήδη δώσει αυτή την αξιολόγηση."
+    },
+    "modal": {
+        "activity_not_found": "Δεν βρέθηκε το activity.",
+        "no_channel_configured": "Δεν έχει ρυθμιστεί κανάλι για posts. Ζήτησε από admin να τρέξει `/setup`.",
+        "published": "Η αναζήτησή σου δημοσιεύτηκε σε {channel}."
+    },
+    "common": {
+        "generic_error": "Κάτι πήγε στραβά. Δοκίμασε ξανά σε λίγο.",
+        "unknown_command": "Άγνωστο command."
+    }
+}

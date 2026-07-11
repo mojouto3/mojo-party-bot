@@ -1,0 +1,27 @@
+{
+  "name": "mojo-party-bot",
+  "version": "0.8.0",
+  "description": "Mojo Party Bot - Discord LFG / group finder, activity-agnostic",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "license": "MIT",
+  "author": "mojouto3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mojouto3/mojo-party-bot.git"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "deploy-commands": "node src/deploy-commands.js",
+    "db:migrate": "node src/database/migrate.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.5",
+    "pg": "^8.13.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

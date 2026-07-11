@@ -1,0 +1,31 @@
+name: New activity / game request
+description: Ask for a new game or sub-activity to be added
+labels: ["new-activity"]
+body:
+  - type: input
+    id: game
+    attributes:
+      label: Game name
+    validations:
+      required: true
+  - type: textarea
+    id: subactivities
+    attributes:
+      label: Sub-activities
+      description: If the game needs multiple LFG contexts (like Black Desert's PvP / Farm / Guild Recruitment), list them.
+    validations:
+      required: false
+  - type: textarea
+    id: fields
+    attributes:
+      label: Fields needed
+      description: What info should a session request for this game capture (rank, class, route, schedule, etc).
+    validations:
+      required: true
+  - type: input
+    id: steam
+    attributes:
+      label: Steam store URL (if available)
+      description: Used for the official artwork thumbnail. Leave blank if not on Steam.
+    validations:
+      required: false

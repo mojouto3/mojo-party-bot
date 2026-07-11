@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check JavaScript syntax
+        run: |
+          for f in $(find src -name "*.js"); do
+            node --check "$f"
+          done
+
+      - name: Validate i18n locale files
+        run: |
+          node -e "require('./src/i18n/locales/el.json'); require('./src/i18n/locales/en.json'); console.log('locale JSON valid')"
