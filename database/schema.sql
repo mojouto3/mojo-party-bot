@@ -146,12 +146,13 @@ ON CONFLICT (slug) DO UPDATE SET
 -- with its own gameplay modes, profile system, and events - distinct
 -- from plain TruckersMP servers.)
 -- ============================================
-INSERT INTO activities (slug, display_name, game_group, accent_color, field_schema)
+INSERT INTO activities (slug, display_name, game_group, accent_color, icon, field_schema)
 VALUES (
     'ets2_vtc_world',
     'EuroTruck Simulator 2 - VTC.World',
     'EuroTruck Simulator 2',
     '#5A8F3D',
+    'https://cdn.akamai.steamstatic.com/steam/apps/227300/header.jpg',
     '{
         "fields": [
             {"key": "mode", "type": "select", "label": "Mode", "options": ["Vanilla", "Simplified", "Simulation"]},
@@ -165,6 +166,7 @@ ON CONFLICT (slug) DO UPDATE SET
     display_name = EXCLUDED.display_name,
     game_group = EXCLUDED.game_group,
     accent_color = EXCLUDED.accent_color,
+    icon = EXCLUDED.icon,
     field_schema = EXCLUDED.field_schema;
 
 -- ============================================
