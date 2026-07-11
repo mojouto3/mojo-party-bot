@@ -22,8 +22,13 @@ async function handleModalSubmit(interaction) {
 
     const fieldData = {};
     for (const field of activity.field_schema.fields || []) {
-        const value = interaction.fields.getTextInputValue(field.key);
-        if (value) fieldData[field.key] = value;
+        if (field.type === 'select') {
+            const values = interaction.fields.getStringSelectValues(field.key);
+            if (values && values.length > 0) fieldData[field.key] = values[0];
+        } else {
+            const value = interaction.fields.getTextInputValue(field.key);
+            if (value) fieldData[field.key] = value;
+        }
     }
 
     const sessionResult = await db.query(
