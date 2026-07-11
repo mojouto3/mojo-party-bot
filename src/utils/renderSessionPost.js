@@ -27,7 +27,7 @@ function buildSessionPostContainer({ sessionRequest, activity, creatorDiscordUse
     const rep = reputation || { score: 0, total_sessions: 0 };
 
     const headerText =
-        `## ${t('post.looking_for_group', locale, { username: creatorDiscordUser.username })}\n` +
+        `## ${t('post.looking_for_group', locale, { username: creatorDiscordUser.globalName || creatorDiscordUser.username })}\n` +
         `${activity.display_name}\n` +
         `⭐ ${Number(rep.score).toFixed(1)} · ${rep.total_sessions} sessions`;
 
