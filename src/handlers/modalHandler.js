@@ -64,7 +64,7 @@ async function handleModalSubmit(interaction) {
         const forumTagId = tagResult.rows[0]?.forum_tag_id;
 
         const thread = await channel.threads.create({
-            name: `${interaction.user.username} · ${activity.display_name}`.slice(0, 90),
+            name: `${interaction.user.globalName || interaction.user.username} · ${activity.display_name}`.slice(0, 90),
             message: { components: [container], flags: MessageFlags.IsComponentsV2 },
             appliedTags: forumTagId ? [forumTagId] : [],
         });

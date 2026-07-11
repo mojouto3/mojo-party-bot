@@ -26,7 +26,7 @@ async function buildProfileContainer(discordUser, locale) {
 
     container.addTextDisplayComponents(
         new TextDisplayBuilder().setContent(
-            `## ${discordUser.username}\n` +
+            `## ${discordUser.globalName || discordUser.username}\n` +
             t('profile.header', locale, { score: Number(rep.score).toFixed(1), sessions: rep.total_sessions })
         )
     );

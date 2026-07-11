@@ -5,13 +5,15 @@ const db = require('./db');
  * Creates them if they don't exist yet (upsert).
  */
 async function ensureUser(discordUser) {
+    const displayName = discordUser.globalName || discordUser.username;
+
     const result = await db.query(
         `INSERT INTO users (discord_id, username)
          VALUES ($1, $2)
          ON CONFLICT (discord_id)
          DO UPDATE SET username = EXCLUDED.username
          RETURNING *`,
-        [discordUser.id, discordUser.username]
+        [discordUser.id, displayName]
     );
     return result.rows[0];
 }
