@@ -1,5 +1,5 @@
 -- ============================================
--- Mojo Party Bot — Database Schema v1
+-- Mojo Party Bot - Database Schema v1
 -- Activity-agnostic core: the same schema works for Valorant,
 -- D&D, Black Desert, EuroTruck Simulator, etc.
 -- ============================================
@@ -115,7 +115,7 @@ CREATE INDEX IF NOT EXISTS idx_user_activity_profiles_activity
 ALTER TABLE activities ALTER COLUMN icon TYPE TEXT;
 
 -- ============================================
--- Seed: first activity type — EuroTruck Simulator 2 Convoy
+-- Seed: first activity type - EuroTruck Simulator 2 Convoy
 -- ============================================
 INSERT INTO activities (slug, display_name, game_group, accent_color, icon, field_schema)
 VALUES (
@@ -165,7 +165,10 @@ ON CONFLICT (slug) DO UPDATE SET
     display_name = EXCLUDED.display_name,
     game_group = EXCLUDED.game_group,
     accent_color = EXCLUDED.accent_color,
-    field_schema = EXCLUDED.field_schema; — tests grouping with several
+    field_schema = EXCLUDED.field_schema;
+
+-- ============================================
+-- Seed: Star Citizen activities - tests grouping with several
 -- sub-activities under the same game_group. No icon: Star Citizen
 -- isn't sold on Steam, so no safe official hotlink URL is available yet.
 -- ============================================
