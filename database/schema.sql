@@ -183,8 +183,9 @@ VALUES
     '#D4A017',
     '{
         "fields": [
-            {"key": "ship", "type": "text", "label": "Ship", "placeholder": "e.g. Prospector, Mole, ROC"},
+            {"key": "ship", "type": "select", "label": "Ship", "options": ["Prospector", "MOLE", "Orion", "ROC (ground)"]},
             {"key": "location", "type": "text", "label": "Location", "placeholder": "e.g. Aaron Halo, Daymar"},
+            {"key": "roles_needed", "type": "text", "label": "Roles needed", "placeholder": "e.g. 2x Laser Operator, 1x Co-pilot"},
             {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
         ]
     }'
@@ -196,8 +197,9 @@ VALUES
     '#8A8578',
     '{
         "fields": [
-            {"key": "ship", "type": "text", "label": "Ship", "placeholder": "e.g. Reclaimer, Vulture"},
+            {"key": "ship", "type": "select", "label": "Ship", "options": ["Vulture", "Reclaimer"]},
             {"key": "location", "type": "text", "label": "Location"},
+            {"key": "roles_needed", "type": "text", "label": "Roles needed", "placeholder": "e.g. 2x Salvage Operator, 1x Cargo Technician"},
             {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
         ]
     }'
@@ -212,6 +214,47 @@ VALUES
             {"key": "ship_class", "type": "text", "label": "Ship class", "placeholder": "e.g. Fighter, Bomber"},
             {"key": "theater", "type": "select", "label": "Theater", "options": ["Stanton", "Pyro", "Nyx"]},
             {"key": "fleet_size", "type": "slots", "label": "Fleet size needed"}
+        ]
+    }'
+),
+(
+    'sc_exploration',
+    'Star Citizen - Exploration',
+    'Star Citizen',
+    '#3E8EA8',
+    '{
+        "fields": [
+            {"key": "ship", "type": "text", "label": "Ship", "placeholder": "e.g. Carrack, Terrapin, 600i"},
+            {"key": "region", "type": "select", "label": "Region", "options": ["Stanton", "Pyro", "Nyx", "Unexplored / Frontier"]},
+            {"key": "roles_needed", "type": "text", "label": "Roles needed", "placeholder": "e.g. Co-pilot, Scanning Operator"},
+            {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
+        ]
+    }'
+),
+(
+    'sc_bounty_pve',
+    'Star Citizen - Bounty Hunting',
+    'Star Citizen',
+    '#B8792B',
+    '{
+        "fields": [
+            {"key": "ship_class", "type": "text", "label": "Ship class", "placeholder": "e.g. Gladius, Vanguard, Hawk"},
+            {"key": "difficulty", "type": "select", "label": "Difficulty", "options": ["Low threat", "Medium threat", "High threat"]},
+            {"key": "region", "type": "select", "label": "Region", "options": ["Stanton", "Pyro", "Nyx"]},
+            {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
+        ]
+    }'
+),
+(
+    'sc_bunker',
+    'Star Citizen - Bunker Mission',
+    'Star Citizen',
+    '#7A2E2E',
+    '{
+        "fields": [
+            {"key": "mission_type", "type": "select", "label": "Mission type", "options": ["Assist Security", "Retake"]},
+            {"key": "region", "type": "select", "label": "Region", "options": ["Stanton", "Pyro", "Nyx"]},
+            {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
         ]
     }'
 )
