@@ -210,7 +210,7 @@ VALUES
     '{
         "fields": [
             {"key": "ship_class", "type": "text", "label": "Ship class", "placeholder": "e.g. Fighter, Bomber"},
-            {"key": "theater", "type": "select", "label": "Theater", "options": ["Stanton", "Pyro"]},
+            {"key": "theater", "type": "select", "label": "Theater", "options": ["Stanton", "Pyro", "Nyx"]},
             {"key": "fleet_size", "type": "slots", "label": "Fleet size needed"}
         ]
     }'
@@ -288,7 +288,7 @@ VALUES (
         "fields": [
             {"key": "rank", "type": "text", "label": "Rank", "placeholder": "e.g. Gold 2"},
             {"key": "role", "type": "select", "label": "Role", "options": ["Duelist", "Controller", "Initiator", "Sentinel"]},
-            {"key": "mode", "type": "select", "label": "Mode", "options": ["Competitive", "Unrated", "Swiftplay"]},
+            {"key": "mode", "type": "select", "label": "Mode", "options": ["Competitive", "Unrated", "Swiftplay", "Premier"]},
             {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
         ]
     }'
@@ -312,7 +312,7 @@ VALUES (
     '{
         "fields": [
             {"key": "rank", "type": "text", "label": "Rank", "placeholder": "e.g. Platinum 3"},
-            {"key": "mode", "type": "select", "label": "Mode", "options": ["Ranked", "Casual", "Mixtape"]},
+            {"key": "mode", "type": "select", "label": "Mode", "options": ["Ranked", "Unranked", "Mixtape", "Wildcard"]},
             {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
         ]
     }'
