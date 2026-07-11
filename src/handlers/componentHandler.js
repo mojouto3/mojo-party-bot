@@ -124,17 +124,37 @@ async function handleSelectActivityForCreate(interaction) {
     return interaction.showModal(buildSessionModal(result.rows[0]));
 }
 
+/**
+ * Compares two sets of field values on their "select" type fields only
+ * (the ones guaranteed to be canonical, exact-match values - see
+ * activityFields.js). Returns how many of them match.
+ */
+function countMatchingSelectFields(fieldSchema, filtersA, filtersB) {
+    const selectFields = (fieldSchema.fields || []).filter(f => f.type === 'select');
+    let matches = 0;
+    for (const field of selectFields) {
+        if (filtersA[field.key] && filtersA[field.key] === filtersB[field.key]) {
+            matches += 1;
+        }
+    }
+    return matches;
+}
+
 async function handleBrowseSessions(interaction) {
     const locale = interaction.locale;
+    const viewer = await ensureUser(interaction.user);
+
     const result = await db.query(
-        `SELECT sr.id, sr.filters, a.display_name AS activity_name, u.id AS user_pk, u.username
+        `SELECT sr.id, sr.filters, sr.activity_id, sr.created_at,
+                a.display_name AS activity_name, a.field_schema,
+                u.id AS user_pk, u.username
          FROM session_requests sr
          JOIN activities a ON a.id = sr.activity_id
          JOIN users u ON u.id = sr.creator_id
          JOIN servers s ON s.id = sr.server_id
          WHERE s.discord_guild_id = $1 AND sr.status = 'open'
          ORDER BY sr.created_at DESC
-         LIMIT 10`,
+         LIMIT 25`,
         [interaction.guild.id]
     );
 
@@ -145,16 +165,46 @@ async function handleBrowseSessions(interaction) {
         });
     }
 
+    // The viewer's own open session requests, one per activity (most recent),
+    // used as the reference point for compatibility matching.
+    const ownSessionsResult = await db.query(
+        `SELECT DISTINCT ON (activity_id) activity_id, filters
+         FROM session_requests
+         WHERE creator_id = $1 AND status = 'open'
+         ORDER BY activity_id, created_at DESC`,
+        [viewer.id]
+    );
+    const ownFiltersByActivity = {};
+    for (const row of ownSessionsResult.rows) {
+        ownFiltersByActivity[row.activity_id] = row.filters || {};
+    }
+
+    const enriched = [];
+    for (const row of result.rows) {
+        const reputation = await getUserReputation(row.user_pk);
+        const ownFilters = ownFiltersByActivity[row.activity_id];
+        const matchScore = ownFilters
+            ? countMatchingSelectFields(row.field_schema, ownFilters, row.filters || {})
+            : 0;
+        enriched.push({ ...row, reputation, matchScore });
+    }
+
+    enriched.sort((a, b) => {
+        if (b.matchScore !== a.matchScore) return b.matchScore - a.matchScore;
+        if (b.reputation.score !== a.reputation.score) return b.reputation.score - a.reputation.score;
+        return new Date(b.created_at) - new Date(a.created_at);
+    });
+
     const container = new ContainerBuilder().setAccentColor(0x1D9E75);
     container.addTextDisplayComponents(
         new TextDisplayBuilder().setContent(t('component.browse_title', locale))
     );
 
-    for (const row of result.rows) {
-        const rep = await getUserReputation(row.user_pk);
+    for (const row of enriched.slice(0, 10)) {
+        const matchHint = row.matchScore > 0 ? t('component.browse_matching_hint', locale, { count: row.matchScore }) : '';
         container.addTextDisplayComponents(
             new TextDisplayBuilder().setContent(
-                `**${row.username}** · ${row.activity_name}\n⭐ ${Number(rep.score).toFixed(1)} · ${rep.total_sessions} sessions`
+                `**${row.username}** · ${row.activity_name}\n⭐ ${Number(row.reputation.score).toFixed(1)} · ${row.reputation.total_sessions} sessions${matchHint}`
             )
         );
         container.addActionRowComponents(

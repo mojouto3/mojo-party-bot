@@ -34,6 +34,7 @@
         "select_game_placeholder": "Choose a game",
         "activity_not_found": "Activity not found.",
         "browse_title": "## Open session requests",
+        "browse_matching_hint": " · {count} matching",
         "browse_empty": "There are no open session requests right now. Be the first to create one!",
         "join_own_session": "You joined your own session request.",
         "join_notified": "You joined the session request. The creator was notified via DM.",

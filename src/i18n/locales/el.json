@@ -34,6 +34,7 @@
         "select_game_placeholder": "Επίλεξε παιχνίδι",
         "activity_not_found": "Δεν βρέθηκε το activity.",
         "browse_title": "## Ανοιχτές αναζητήσεις",
+        "browse_matching_hint": " · {count} κοινά",
         "browse_empty": "Δεν υπάρχουν ανοιχτές αναζητήσεις αυτή τη στιγμή. Φτιάξε την πρώτη!",
         "join_own_session": "Μπήκες στη δική σου αναζήτηση.",
         "join_notified": "Μπήκες στην αναζήτηση. Ο δημιουργός ενημερώθηκε με DM.",
