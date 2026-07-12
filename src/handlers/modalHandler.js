@@ -1,4 +1,4 @@
-const { MessageFlags, ChannelType } = require('discord.js');
+const { MessageFlags } = require('discord.js');
 const db = require('../database/db');
 const { ensureUser, ensureServer } = require('../database/helpers');
 const { buildSessionPostContainer } = require('../utils/renderSessionPost');
@@ -49,7 +49,13 @@ async function handleModalSubmit(interaction) {
         locale,
     });
 
-    const targetChannelId = server.forum_channel_id || server.fallback_channel_id;
+    const serverActivityResult = await db.query(
+        `SELECT channel_id, is_forum, forum_tag_id FROM server_activities
+         WHERE server_id = $1 AND activity_id = $2`,
+        [server.id, activity.id]
+    );
+    const serverActivity = serverActivityResult.rows[0];
+    const targetChannelId = serverActivity?.channel_id;
 
     if (!targetChannelId) {
         return interaction.reply({
@@ -61,17 +67,11 @@ async function handleModalSubmit(interaction) {
     const channel = await interaction.client.channels.fetch(targetChannelId);
     let sentMessageId = null;
 
-    if (channel.type === ChannelType.GuildForum) {
-        const tagResult = await db.query(
-            `SELECT forum_tag_id FROM server_activities WHERE server_id = $1 AND activity_id = $2`,
-            [server.id, activity.id]
-        );
-        const forumTagId = tagResult.rows[0]?.forum_tag_id;
-
+    if (serverActivity.is_forum) {
         const thread = await channel.threads.create({
             name: `${interaction.user.globalName || interaction.user.username} · ${activity.display_name}`.slice(0, 90),
             message: { components: [container], flags: MessageFlags.IsComponentsV2 },
-            appliedTags: forumTagId ? [forumTagId] : [],
+            appliedTags: serverActivity.forum_tag_id ? [serverActivity.forum_tag_id] : [],
         });
         sentMessageId = thread.id;
     } else {

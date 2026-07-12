@@ -535,3 +535,14 @@ ALTER TABLE activities ADD COLUMN IF NOT EXISTS notified BOOLEAN NOT NULL DEFAUL
 -- so they keep notified = false until the notification job processes them.
 UPDATE activities SET notified = true
 WHERE created_at < '2026-07-13 00:00:00+00' AND notified = false;
+
+-- ============================================
+-- Per-activity channel storage: lets a server post different activities
+-- to different channels (e.g. a separate forum per game category),
+-- instead of one shared channel for the whole server. Previously
+-- servers.forum_channel_id / fallback_channel_id were server-wide,
+-- which meant activating a second game silently overwrote the first
+-- game's channel.
+-- ============================================
+ALTER TABLE server_activities ADD COLUMN IF NOT EXISTS channel_id VARCHAR(20);
+ALTER TABLE server_activities ADD COLUMN IF NOT EXISTS is_forum BOOLEAN;

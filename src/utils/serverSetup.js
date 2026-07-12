@@ -1,20 +1,8 @@
 const { ChannelType } = require('discord.js');
 const db = require('../database/db');
 
-/**
- * Stores the target channel on the server record (forum vs fallback text channel).
- * Returns whether the channel is a forum.
- */
-async function setChannelForServer(channel, server) {
-    const isForum = channel.type === ChannelType.GuildForum;
-    const updateField = isForum ? 'forum_channel_id' : 'fallback_channel_id';
-
-    await db.query(
-        `UPDATE servers SET ${updateField} = $1 WHERE id = $2`,
-        [channel.id, server.id]
-    );
-
-    return isForum;
+function isForumChannel(channel) {
+    return channel.type === ChannelType.GuildForum;
 }
 
 /**
@@ -57,15 +45,17 @@ async function ensureForumTag(channel, server, activity) {
 }
 
 /**
- * Activates a single activity for a server: links it in server_activities
- * and, if the channel is a forum, ensures a matching tag exists.
+ * Activates a single activity for a server, storing which channel THIS
+ * activity posts to (not a server-wide channel - each activity can have
+ * its own). If the channel is a forum, ensures a matching tag exists.
  */
 async function activateActivityForServer(channel, server, activity, isForum) {
     await db.query(
-        `INSERT INTO server_activities (server_id, activity_id)
-         VALUES ($1, $2)
-         ON CONFLICT (server_id, activity_id) DO NOTHING`,
-        [server.id, activity.id]
+        `INSERT INTO server_activities (server_id, activity_id, channel_id, is_forum)
+         VALUES ($1, $2, $3, $4)
+         ON CONFLICT (server_id, activity_id)
+         DO UPDATE SET channel_id = EXCLUDED.channel_id, is_forum = EXCLUDED.is_forum`,
+        [server.id, activity.id, channel.id, isForum]
     );
 
     if (isForum) {
@@ -73,4 +63,4 @@ async function activateActivityForServer(channel, server, activity, isForum) {
     }
 }
 
-module.exports = { setChannelForServer, ensureForumTag, activateActivityForServer };
+module.exports = { isForumChannel, ensureForumTag, activateActivityForServer };

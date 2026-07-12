@@ -1,6 +1,5 @@
 const {
     MessageFlags,
-    ChannelType,
     ContainerBuilder,
     TextDisplayBuilder,
     ActionRowBuilder,
@@ -241,11 +240,11 @@ async function getSessionContext(sessionRequestId) {
                 a.id AS activity_id, a.display_name AS activity_name, a.field_schema,
                 a.accent_color, a.icon,
                 u.discord_id AS creator_discord_id,
-                s.forum_channel_id, s.fallback_channel_id
+                sa.channel_id, sa.is_forum
          FROM session_requests sr
          JOIN activities a ON a.id = sr.activity_id
          JOIN users u ON u.id = sr.creator_id
-         JOIN servers s ON s.id = sr.server_id
+         JOIN server_activities sa ON sa.server_id = sr.server_id AND sa.activity_id = sr.activity_id
          WHERE sr.id = $1`,
         [sessionRequestId]
     );
@@ -262,14 +261,14 @@ async function getSessionContext(sessionRequestId) {
  * (same limitation as the hub message's static button labels).
  */
 async function updateLiveSessionPost(client, session, state) {
-    const channelId = session.forum_channel_id || session.fallback_channel_id;
+    const channelId = session.channel_id;
     if (!channelId || !session.discord_thread_id) return;
 
     try {
         const channel = await client.channels.fetch(channelId);
         let message;
 
-        if (channel.type === ChannelType.GuildForum) {
+        if (session.is_forum) {
             const thread = await channel.threads.fetch(session.discord_thread_id);
             message = await thread.fetchStarterMessage();
         } else {
