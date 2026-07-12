@@ -49,6 +49,9 @@
         "complete_success": "Η αναζήτηση ολοκληρώθηκε. Στάλθηκαν αιτήματα αξιολόγησης με DM.",
         "complete_no_participants": "Η αναζήτηση ολοκληρώθηκε. Κανείς δεν είχε μπει, οπότε δεν υπάρχει τι να αξιολογηθεί."
     },
+    "notify": {
+        "new_activity": "Προστέθηκε νέο activity στο Mojo Party Bot: **{activity}**{gameGroup}\nΤρέξε `/setup-game` ή `/setup` στο server σου αν θες να το ενεργοποιήσεις. Δεν χρειάζεται καμία ενέργεια αν δεν σε ενδιαφέρει."
+    },
     "rate": {
         "creator_prompt": "Η αναζήτηση **{activity}** ολοκληρώθηκε με {participants}! Αξιολόγησε πώς πήγε:",
         "guest_prompt": "Πώς πήγε η αναζήτηση **{activity}** με host τον/την {creator};",

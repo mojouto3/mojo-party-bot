@@ -23,12 +23,12 @@ async function ensureUser(discordUser) {
  */
 async function ensureServer(guild) {
     const result = await db.query(
-        `INSERT INTO servers (discord_guild_id, name)
-         VALUES ($1, $2)
+        `INSERT INTO servers (discord_guild_id, name, owner_discord_id)
+         VALUES ($1, $2, $3)
          ON CONFLICT (discord_guild_id)
-         DO UPDATE SET name = EXCLUDED.name
+         DO UPDATE SET name = EXCLUDED.name, owner_discord_id = EXCLUDED.owner_discord_id
          RETURNING *`,
-        [guild.id, guild.name]
+        [guild.id, guild.name, guild.ownerId]
     );
     return result.rows[0];
 }
