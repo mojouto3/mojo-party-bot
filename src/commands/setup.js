@@ -22,33 +22,30 @@ module.exports = {
         )
         .addStringOption(option =>
             option.setName('activity')
-                .setDescription('Which activity to activate first')
+                .setDescription('Which activity to activate first (start typing to search)')
                 .setDescriptionLocalizations({
-                    el: 'Ποιο activity να ενεργοποιηθεί πρώτο',
+                    el: 'Ποιο activity να ενεργοποιηθεί πρώτο (γράψε για αναζήτηση)',
                 })
                 .setRequired(true)
-                .addChoices(
-                    { name: 'EuroTruck Simulator 2 - Convoy', value: 'ets2_convoy' },
-                    { name: 'EuroTruck Simulator 2 - VTC.World', value: 'ets2_vtc_world' },
-                    { name: 'Star Citizen - Mining', value: 'sc_mining' },
-                    { name: 'Star Citizen - Salvage', value: 'sc_salvage' },
-                    { name: 'Star Citizen - PvP', value: 'sc_pvp' },
-                    { name: 'Star Citizen - Exploration', value: 'sc_exploration' },
-                    { name: 'Star Citizen - Bounty Hunting', value: 'sc_bounty_pve' },
-                    { name: 'Star Citizen - Bunker Mission', value: 'sc_bunker' },
-                    { name: 'Black Desert - PvP / Node War', value: 'bdo_pvp' },
-                    { name: 'Black Desert - Farm / Grind', value: 'bdo_farm' },
-                    { name: 'Black Desert - Guild Recruitment', value: 'bdo_guild' },
-                    { name: 'Valorant - Competitive', value: 'valorant_competitive' },
-                    { name: 'Apex Legends - Squad', value: 'apex_squad' },
-                    { name: 'Counter-Strike 2 - Competitive', value: 'cs2_competitive' },
-                    { name: 'League of Legends - Ranked', value: 'lol_ranked' },
-                    { name: 'World of Warcraft - Group Content', value: 'wow_group' },
-                    { name: 'D&D 5th Edition', value: 'dnd_5e' },
-                    { name: 'Call of Duty - Multiplayer', value: 'cod_multiplayer' }
-                )
+                .setAutocomplete(true)
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+
+    async autocomplete(interaction) {
+        const focused = interaction.options.getFocused().toLowerCase();
+
+        const result = await db.query(
+            `SELECT slug, display_name FROM activities
+             WHERE is_active = true AND LOWER(display_name) LIKE $1
+             ORDER BY display_name
+             LIMIT 25`,
+            [`%${focused}%`]
+        );
+
+        await interaction.respond(
+            result.rows.map(row => ({ name: row.display_name, value: row.slug }))
+        );
+    },
 
     async execute(interaction) {
         const locale = interaction.locale;
