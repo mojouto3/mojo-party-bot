@@ -488,3 +488,35 @@ ON CONFLICT (slug) DO UPDATE SET
     game_group = EXCLUDED.game_group,
     accent_color = EXCLUDED.accent_color,
     field_schema = EXCLUDED.field_schema;
+
+-- ============================================
+-- Seed: Custom Game (fallback / safety net)
+--
+-- Covers any game not yet added to the database with proper research
+-- (real servers, classes, modes, etc). Every field is free text since
+-- we can't know a given game's structured options in advance, so this
+-- activity gets no compatibility-based matching and no thumbnail. It's
+-- meant to be a temporary stand-in, not a permanent substitute for
+-- adding the game properly - see CONTRIBUTING.md for how to request
+-- a new game.
+-- ============================================
+INSERT INTO activities (slug, display_name, game_group, accent_color, field_schema)
+VALUES (
+    'custom_game',
+    'Custom Game',
+    'Custom Game',
+    '#6B7280',
+    '{
+        "fields": [
+            {"key": "game_name", "type": "text", "label": "Game name", "placeholder": "e.g. Sea of Thieves"},
+            {"key": "activity_type", "type": "text", "label": "Activity type", "placeholder": "e.g. PvP, Co-op grinding, Raid"},
+            {"key": "details", "type": "text", "label": "Details", "placeholder": "e.g. Need 2 more for crew, EU server"},
+            {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
+        ]
+    }'
+)
+ON CONFLICT (slug) DO UPDATE SET
+    display_name = EXCLUDED.display_name,
+    game_group = EXCLUDED.game_group,
+    accent_color = EXCLUDED.accent_color,
+    field_schema = EXCLUDED.field_schema;
