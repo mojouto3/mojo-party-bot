@@ -277,7 +277,7 @@ VALUES
     'https://cdn.akamai.steamstatic.com/steam/apps/582660/header.jpg',
     '{
         "fields": [
-            {"key": "class", "type": "text", "label": "Class", "placeholder": "e.g. Ranger, Warrior, Witch"},
+            {"key": "archetype", "type": "select", "label": "Archetype", "options": ["Tank", "DPS", "Mage", "Support"]},
             {"key": "ap_dp", "type": "text", "label": "AP / DP", "placeholder": "e.g. 280/340"},
             {"key": "server", "type": "select", "label": "Server", "options": ["EU", "NA"]}
         ]
@@ -291,7 +291,7 @@ VALUES
     'https://cdn.akamai.steamstatic.com/steam/apps/582660/header.jpg',
     '{
         "fields": [
-            {"key": "class", "type": "text", "label": "Class", "placeholder": "e.g. Ranger, Warrior, Witch"},
+            {"key": "archetype", "type": "select", "label": "Archetype", "options": ["Tank", "DPS", "Mage", "Support"]},
             {"key": "area", "type": "text", "label": "Area", "placeholder": "e.g. Bashim Base, Sycraia"},
             {"key": "server", "type": "select", "label": "Server", "options": ["EU", "NA"]}
         ]
@@ -305,7 +305,7 @@ VALUES
     'https://cdn.akamai.steamstatic.com/steam/apps/582660/header.jpg',
     '{
         "fields": [
-            {"key": "role_needed", "type": "text", "label": "Role needed", "placeholder": "e.g. Tank, Healer, DPS"},
+            {"key": "role_needed", "type": "select", "label": "Role needed", "options": ["Tank", "DPS", "Mage", "Support"]},
             {"key": "guild_name", "type": "text", "label": "Guild name"},
             {"key": "commitment", "type": "select", "label": "Commitment", "options": ["Casual", "Hardcore"]}
         ]
@@ -428,6 +428,7 @@ VALUES (
     '{
         "fields": [
             {"key": "role", "type": "select", "label": "Role", "options": ["Tank", "Healer", "DPS"]},
+            {"key": "class", "type": "select", "label": "Class", "options": ["Warrior", "Paladin", "Hunter", "Rogue", "Priest", "Death Knight", "Shaman", "Mage", "Warlock", "Monk", "Druid", "Demon Hunter", "Evoker"]},
             {"key": "content", "type": "select", "label": "Content", "options": ["Raid", "Mythic+", "PvP"]},
             {"key": "ilvl", "type": "text", "label": "Item level"},
             {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
