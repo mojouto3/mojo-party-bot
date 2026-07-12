@@ -3,6 +3,7 @@ const { Client, GatewayIntentBits } = require('discord.js');
 const { loadCommands } = require('./handlers/loadCommands');
 const { registerInteractionHandler } = require('./handlers/interactionHandler');
 const { cleanupExpiredSessions } = require('./jobs/cleanupExpiredSessions');
+const { notifyNewActivities } = require('./jobs/notifyNewActivities');
 
 const CLEANUP_INTERVAL_MS = 60 * 60 * 1000; // check once an hour
 
@@ -15,10 +16,13 @@ const client = new Client({
 client.once('clientReady', () => {
     console.log(`Mojo Party Bot connected as ${client.user.tag}`);
 
-    cleanupExpiredSessions(client).catch(err => console.error('Cleanup job error:', err));
-    setInterval(() => {
+    const runBackgroundJobs = () => {
         cleanupExpiredSessions(client).catch(err => console.error('Cleanup job error:', err));
-    }, CLEANUP_INTERVAL_MS);
+        notifyNewActivities(client).catch(err => console.error('New activity notification job error:', err));
+    };
+
+    runBackgroundJobs();
+    setInterval(runBackgroundJobs, CLEANUP_INTERVAL_MS);
 });
 
 loadCommands(client);

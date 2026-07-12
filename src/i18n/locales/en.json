@@ -49,6 +49,9 @@
         "complete_success": "Session marked as completed. Rating requests have been sent via DM.",
         "complete_no_participants": "Session marked as completed. No one had joined, so there's nothing to rate."
     },
+    "notify": {
+        "new_activity": "A new activity was added to Mojo Party Bot: **{activity}**{gameGroup}\nRun `/setup-game` or `/setup` in your server if you'd like to activate it. No action needed if you're not interested."
+    },
     "rate": {
         "creator_prompt": "**{activity}** session with {participants} is done! Rate how it went:",
         "guest_prompt": "How was your session for **{activity}** hosted by {creator}?",

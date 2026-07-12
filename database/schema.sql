@@ -520,3 +520,18 @@ ON CONFLICT (slug) DO UPDATE SET
     game_group = EXCLUDED.game_group,
     accent_color = EXCLUDED.accent_color,
     field_schema = EXCLUDED.field_schema;
+
+-- ============================================
+-- New activity notifications: lets us DM server owners when a new
+-- activity is added to the database, without auto-activating anything
+-- on their server (they still choose via /setup or /setup-game).
+-- ============================================
+ALTER TABLE activities ADD COLUMN IF NOT EXISTS notified BOOLEAN NOT NULL DEFAULT false;
+
+-- One-time backfill: activities that already existed before this feature
+-- shipped shouldn't retroactively DM every server owner. Only activities
+-- inserted after this cutoff are genuinely "new" and should trigger a DM.
+-- Safe to re-run: rows created after the cutoff are never touched here,
+-- so they keep notified = false until the notification job processes them.
+UPDATE activities SET notified = true
+WHERE created_at < '2026-07-13 00:00:00+00' AND notified = false;
