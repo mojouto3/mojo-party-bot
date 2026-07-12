@@ -405,7 +405,7 @@ VALUES (
         "fields": [
             {"key": "rank", "type": "text", "label": "Rank", "placeholder": "e.g. Gold 2"},
             {"key": "role", "type": "select", "label": "Role", "options": ["Top", "Jungle", "Mid", "ADC", "Support"]},
-            {"key": "mode", "type": "select", "label": "Mode", "options": ["Ranked Solo", "Ranked Flex", "Normal"]},
+            {"key": "mode", "type": "select", "label": "Mode", "options": ["Ranked Solo/Duo", "Ranked Flex", "Normal"]},
             {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
         ]
     }'
@@ -453,7 +453,7 @@ VALUES (
     '{
         "fields": [
             {"key": "role", "type": "select", "label": "Role", "options": ["Dungeon Master", "Player"]},
-            {"key": "system", "type": "text", "label": "System", "placeholder": "e.g. 5th Edition"},
+            {"key": "system", "type": "text", "label": "System", "placeholder": "e.g. 5th Edition (2014), 5th Edition (2024 revised)"},
             {"key": "schedule", "type": "text", "label": "Schedule", "placeholder": "e.g. Wednesdays 21:00"},
             {"key": "campaign_length", "type": "select", "label": "Campaign length", "options": ["One-shot", "Short campaign", "Long campaign"]}
         ]
@@ -477,7 +477,7 @@ VALUES (
     '#5A6B47',
     '{
         "fields": [
-            {"key": "title", "type": "text", "label": "Title", "placeholder": "e.g. Modern Warfare 3, Warzone"},
+            {"key": "title", "type": "text", "label": "Title", "placeholder": "e.g. Black Ops 7, Warzone, Modern Warfare 4"},
             {"key": "mode", "type": "select", "label": "Mode", "options": ["Multiplayer", "Warzone", "Ranked"]},
             {"key": "slots_needed", "type": "slots", "label": "Slots needed"}
         ]
