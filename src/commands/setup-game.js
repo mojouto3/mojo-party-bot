@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags, ChannelType } = require('discord.js');
 const db = require('../database/db');
 const { ensureServer } = require('../database/helpers');
-const { setChannelForServer, activateActivityForServer } = require('../utils/serverSetup');
+const { isForumChannel, activateActivityForServer } = require('../utils/serverSetup');
 const { t } = require('../i18n');
 
 module.exports = {
@@ -67,7 +67,7 @@ module.exports = {
         }
 
         const server = await ensureServer(interaction.guild);
-        const isForum = await setChannelForServer(channel, server);
+        const isForum = isForumChannel(channel);
 
         for (const activity of activitiesResult.rows) {
             await activateActivityForServer(channel, server, activity, isForum);

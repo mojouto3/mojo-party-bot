@@ -1,4 +1,3 @@
-const { ChannelType } = require('discord.js');
 const db = require('../database/db');
 
 /**
@@ -11,9 +10,9 @@ const db = require('../database/db');
 async function cleanupExpiredSessions(client) {
     const result = await db.query(
         `SELECT sr.id, sr.discord_thread_id,
-                s.forum_channel_id, s.fallback_channel_id
+                sa.channel_id, sa.is_forum
          FROM session_requests sr
-         JOIN servers s ON s.id = sr.server_id
+         JOIN server_activities sa ON sa.server_id = sr.server_id AND sa.activity_id = sr.activity_id
          WHERE sr.status IN ('open', 'full', 'completed')
            AND sr.expires_at IS NOT NULL
            AND sr.expires_at < now()`
@@ -24,13 +23,11 @@ async function cleanupExpiredSessions(client) {
     console.log(`Cleanup: ${result.rows.length} expired session request(s) to remove.`);
 
     for (const row of result.rows) {
-        const channelId = row.forum_channel_id || row.fallback_channel_id;
-
-        if (channelId && row.discord_thread_id) {
+        if (row.channel_id && row.discord_thread_id) {
             try {
-                const channel = await client.channels.fetch(channelId);
+                const channel = await client.channels.fetch(row.channel_id);
 
-                if (channel.type === ChannelType.GuildForum) {
+                if (row.is_forum) {
                     const thread = await channel.threads.fetch(row.discord_thread_id);
                     if (thread) await thread.delete();
                 } else {
